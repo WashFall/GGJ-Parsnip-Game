@@ -48,8 +48,17 @@ public class CharacterMovement : MonoBehaviour
         {
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, heading, rotateStep, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
+            rigidBody.velocity = newPosition.normalized * moveSpeed;
+        }
+        else
+        {
+            if(rigidBody.velocity.magnitude > 0)
+            {
+                rigidBody.velocity *= 0.9f;
+            }
+
+            if (rigidBody.velocity.magnitude < 0.01f) rigidBody.velocity = Vector3.zero;
         }
 
-        rigidBody.velocity = newPosition.normalized * moveSpeed;
     }
 }
