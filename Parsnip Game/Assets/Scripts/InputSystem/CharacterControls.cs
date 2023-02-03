@@ -30,7 +30,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Vertical"",
                     ""type"": ""Button"",
-                    ""id"": ""2698afc2-22be-456b-9a89-4e9d39bd76fc"",
+                    ""id"": ""ab214d62-34a5-49c5-b00d-b95d9e8b949b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -39,7 +39,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Horizontal"",
                     ""type"": ""Button"",
-                    ""id"": ""92935c76-4234-4f5c-a88f-8a333ab5b4c5"",
+                    ""id"": ""933dbd3d-51fd-40c8-b3f8-d5095bf9de4c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -49,7 +49,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": ""WS"",
-                    ""id"": ""7bd94427-bf6e-47dc-ae1b-26b70432c16a"",
+                    ""id"": ""3e73486e-2495-44ee-b7f5-bce13605d27c"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -60,7 +60,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""ed1cd8f7-69bb-4c6a-b839-415ecc430f92"",
+                    ""id"": ""189713f2-4cf7-476c-a47d-d670c73baa82"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -71,7 +71,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""7dab20c9-f25c-4871-b755-2970412544af"",
+                    ""id"": ""81288b73-406c-4783-8bd4-cc3200d4a221"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -82,7 +82,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""UpDown"",
-                    ""id"": ""7e0a1463-182d-41cf-b12c-91db46e35c2f"",
+                    ""id"": ""cf0a684c-3f37-4b4c-92cc-337bcf85f8f8"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -93,7 +93,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""ce95d293-f867-47b1-b4b2-1af785432fe8"",
+                    ""id"": ""a3bb495b-a40f-48d2-bd04-46d7edce2c0a"",
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -104,7 +104,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""acabb9be-9e7d-4a00-be21-1592471ac555"",
+                    ""id"": ""4b9816f5-8aed-4a0d-a452-a3e2444056de"",
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -115,7 +115,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""AD"",
-                    ""id"": ""be452c7b-eb61-473e-afeb-4b0dde9e65d1"",
+                    ""id"": ""a528aa69-172a-4a1e-9666-4fe5b7a98135"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -126,7 +126,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""4b091281-a77d-4ff5-91bc-b58a7f301813"",
+                    ""id"": ""ed6a7f2f-085a-49d0-9362-8a9599a8c0b3"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -137,7 +137,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""223655fb-63bc-4c3a-a47e-b6c994963f40"",
+                    ""id"": ""1283b5ca-1cd5-4ebd-9181-926e38bf96fe"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -148,7 +148,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""LeftRight"",
-                    ""id"": ""bc464dd8-1715-4000-910d-2b75154c6b2d"",
+                    ""id"": ""c58e8502-77bc-46d6-b297-d51c3c1b066e"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -159,7 +159,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""8596a1ef-6885-4adc-a552-ada357981a51"",
+                    ""id"": ""efc7b134-bcc8-4708-af44-5c9c425eb9c9"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -170,7 +170,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""b130fdb9-2d8f-4c5d-9bee-12d5febe5ae7"",
+                    ""id"": ""5dcdb3b1-41bc-43c3-8cc5-4c67d48d263a"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
