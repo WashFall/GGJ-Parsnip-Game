@@ -26,7 +26,7 @@ public class CharacterMovement : MonoBehaviour
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Move();
     }
@@ -42,7 +42,7 @@ public class CharacterMovement : MonoBehaviour
         newPosition += rightMovement;
         newPosition += upMovement;
 
-        float rotateStep = rotateSpeed * Time.deltaTime;
+        float rotateStep = rotateSpeed * Time.fixedDeltaTime;
 
         if (rightMovement.magnitude > 0 || upMovement.magnitude > 0)
         {
