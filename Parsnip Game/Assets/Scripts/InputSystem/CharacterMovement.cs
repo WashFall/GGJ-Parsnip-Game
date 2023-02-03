@@ -10,6 +10,7 @@ public class CharacterMovement : MonoBehaviour
 
     public float moveSpeed = 10;
     public float rotateSpeed = 20;
+    public Camera playerCamera;
 
     void Start()
     {
@@ -18,7 +19,7 @@ public class CharacterMovement : MonoBehaviour
 
         rigidBody = GetComponent<Rigidbody>();
 
-        forward = Camera.main.transform.forward;
+        forward = playerCamera.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
 

@@ -530,6 +530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   rotateSpeed: 20
+  playerCamera: {fileID: 963194227}
 --- !u!1 &1589426056
 GameObject:
   m_ObjectHideFlags: 0
