@@ -8,8 +8,8 @@ public class CharacterMovement : MonoBehaviour
     private Rigidbody rigidBody;
     private Vector3 forward, right;
 
-    public float moveSpeed = 10;
-    public float rotateSpeed = 20;
+    public float moveSpeed;
+    public float rotateSpeed;
     public Camera playerCamera;
 
     void Start()
@@ -41,8 +41,14 @@ public class CharacterMovement : MonoBehaviour
         Vector3 newPosition = new Vector3();
         newPosition += rightMovement;
         newPosition += upMovement;
+
+        float rotateStep = rotateSpeed * Time.deltaTime;
+
         if (rightMovement.magnitude > 0 || upMovement.magnitude > 0)
-            transform.forward = Vector3.Lerp(transform.forward, heading, rotateSpeed * Time.deltaTime);
+        {
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, heading, rotateStep, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+        }
 
         rigidBody.velocity = newPosition.normalized * moveSpeed;
     }
