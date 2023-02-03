@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(InputManager))]
 public class CharacterMovement : MonoBehaviour
 {
-    private CharacterControls characterControls;
     private Rigidbody rigidBody;
     private Vector3 forward, right;
+    private InputManager inputManager;
 
     public float moveSpeed;
     public float rotateSpeed;
@@ -14,9 +15,7 @@ public class CharacterMovement : MonoBehaviour
 
     void Start()
     {
-        characterControls = new CharacterControls();
-        characterControls.Enable();
-
+        inputManager = GetComponent<InputManager>();
         rigidBody = GetComponent<Rigidbody>();
 
         forward = playerCamera.transform.forward;
@@ -33,8 +32,8 @@ public class CharacterMovement : MonoBehaviour
 
     private void Move()
     {
-        Vector3 rightMovement = right * characterControls.Movement.Horizontal.ReadValue<float>();
-        Vector3 upMovement = forward * characterControls.Movement.Vertical.ReadValue<float>();
+        Vector3 rightMovement = right * inputManager.horizontal.ReadValue<float>();
+        Vector3 upMovement = forward * inputManager.vertical.ReadValue<float>();
 
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
