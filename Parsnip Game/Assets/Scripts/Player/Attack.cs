@@ -11,16 +11,14 @@ using UnityEngine.InputSystem;
 public class Attack : MonoBehaviour
 {
     private InputManager inputManager;
-    private CharacterMovement characterMovement;
     private List<BuildingHealth> buildingHealth;
-    
+
     public ParticleSystem scatterFx;
     public delegate void Explosion();
     public static Explosion explosion;
     public GameObject explosionSite;
     public Transform currentExplosionSite;
 
-    private SphereCollider attackSphere;
     [SerializeField]private SphereCollider maxRadius;
     [SerializeField] private Rigidbody rb;
 
@@ -33,9 +31,7 @@ public class Attack : MonoBehaviour
     private void Start()
     {
         inputManager = GetComponent<InputManager>();
-        characterMovement = GetComponent<CharacterMovement>();
         
-        attackSphere = GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -43,8 +39,6 @@ public class Attack : MonoBehaviour
     {
         if (inputManager.attack.ReadValue<float>() == 1)
             StartAttack();
-        else
-            ReleaseAttack();
 
         Debug.Log(attackProgress);
 
@@ -57,50 +51,36 @@ public class Attack : MonoBehaviour
             explosion?.Invoke();
             GameObject newExplosion = Instantiate(explosionSite, transform.position, Quaternion.identity);
             currentExplosionSite = newExplosion.transform;
+            StartCoroutine(Stuck());
         }
 
-        if (attackProgress == 0)
-            characterMovement.canMove = true;
 
         damage = attackProgress * 100f;
     }
 
     private void StartAttack()
     {
+        if (hasAttackedRecently) return;
+
         rb.velocity = Vector3.zero;
-        characterMovement.canMove = false;
         if (attackProgress < 1 && !hasAttackedRecently) attackProgress += 0.5f * Time.deltaTime;
 
-        if (attackProgress > 1 && !hasAttackedRecently)
+        if (attackProgress > 1)
         {
             attackProgress = 1;
         }
     }
 
-    private void ReleaseAttack()
+    private IEnumerator Stuck()
     {
-        if (attackProgress > 0) attackProgress -= Time.deltaTime;
-        if (attackProgress < 0)
-        {
-            hasAttackedRecently = false;
-            attackProgress = 0;
-        }
+        rb.isKinematic = true;
+        rb.velocity = Vector3.zero;
+        yield return new WaitForSecondsRealtime(1f);
+        rb.isKinematic = false;
+        attackProgress = 0;
+        hasAttackedRecently = false;
     }
 
-    private void DoDamage()
-    {
-        if (buildingHealth == null) return;
-
-        if (prematureAttack)
-            damage *= 0.5f;
-
-        for (int i = 0; i < buildingHealth.Count; i++)
-        {
-            buildingHealth[i].DamageHealth(damage);
-        }
-        //Debug.Log("Damage: " + damage);
-        //Debug.Log("We did some damage! Health left: " + buildingHealth.health);
-    }
     void ExplosionDamage(Vector3 center, float radius)
     {
         int maxColliders = 10;
