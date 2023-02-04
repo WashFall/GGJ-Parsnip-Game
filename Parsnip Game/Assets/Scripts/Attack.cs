@@ -11,11 +11,17 @@ public class Attack : MonoBehaviour
     private InputManager inputManager;
     public ParticleSystem scatterFx;
 
+    private SphereCollider attackSphere;
+    private SphereCollider maxRadius;
+
     private float attackProgress;
+    private float attackRadius;
 
     private void Start()
     {
         inputManager = GetComponent<InputManager>();
+        attackSphere = GetComponent<SphereCollider>();
+        maxRadius = transform.GetChild(2).GetComponent<SphereCollider>();
     }
 
     private void Update()
@@ -25,10 +31,13 @@ public class Attack : MonoBehaviour
         else
             ReleaseAttack();
         
-        Debug.Log(attackProgress);
 
         if (attackProgress >= 1)
             scatterFx.Emit(5000);
+
+        float i = attackProgress * maxRadius.radius;
+        attackSphere.radius = i;
+        //Debug.Log(attackProgress);
     }
 
     private void DoAttack()
