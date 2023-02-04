@@ -55,15 +55,18 @@ public class FarmerBehaviour : MonoBehaviour
 
     void Patrol()
     {
-        if (Vector3.Distance(transform.position, setDestination.target.position) < closeDistanceToTarget)
+        if (!explosionHeard)
         {
-            setDestination.target = SelectNewRandomSpot();
-            Debug.Log("Hej");
+            if (Vector3.Distance(transform.position, setDestination.target.position) < closeDistanceToTarget)
+            {
+                setDestination.target = SelectNewRandomSpot();
+                Debug.Log("Hej");
+            }
         }
         //TODO: Make below event
         if (explosionHeard)
         {
-            target.position = playerPosition.position;
+            target = playerPosition.GetComponent<Attack>().currentExplosionSite;
 
             pathFinder.maxSpeed = seekSpeed;
             setDestination.target = target;

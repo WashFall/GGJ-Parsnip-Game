@@ -17,6 +17,8 @@ public class Attack : MonoBehaviour
     public ParticleSystem scatterFx;
     public delegate void Explosion();
     public static Explosion explosion;
+    public GameObject explosionSite;
+    public Transform currentExplosionSite;
 
     private SphereCollider attackSphere;
     private SphereCollider maxRadius;
@@ -48,11 +50,14 @@ public class Attack : MonoBehaviour
         float activeRadius = attackProgress * maxRadius.radius;
         attackSphere.radius = activeRadius;
         
-        if (attackProgress >= 1)
+        if (attackProgress >= 1 && !hasAttackedRecently)
         {
+            hasAttackedRecently = true;
             scatterFx.Emit(5000);
             DoDamage();
             explosion?.Invoke();
+            GameObject newExplosion = Instantiate(explosionSite, transform.position, Quaternion.identity);
+            currentExplosionSite = newExplosion.transform;
         }
 
         if (attackProgress == 0)
@@ -68,13 +73,19 @@ public class Attack : MonoBehaviour
         if (attackProgress < 1) attackProgress += 0.5f * Time.deltaTime;
 
         if (attackProgress > 1)
+        {
             attackProgress = 1;
+        }
     }
 
     private void ReleaseAttack()
     {
         if (attackProgress > 0) attackProgress -= Time.deltaTime;
-        if (attackProgress < 0) attackProgress = 0;
+        if (attackProgress < 0)
+        {
+            hasAttackedRecently = false;
+            attackProgress = 0;
+        }
     }
 
     private void DoDamage()
