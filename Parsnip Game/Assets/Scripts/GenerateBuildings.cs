@@ -1,20 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GenerateBuildings : MonoBehaviour
 {
-	[SerializeField] private GameObject m_topPrefab;
+	[SerializeField] private GameObject[] m_topPrefab;
 	[SerializeField] private GameObject[] m_middlePrefab;
-	[SerializeField] private GameObject m_bottomPrefab;
+	[SerializeField] private GameObject[] m_bottomPrefab;
 	[SerializeField] private Vector2Int m_amountOfBuildingBlocks;
 	[SerializeField] private int m_buildingDensity;
 	[SerializeField] private BoxCollider m_buildingBounds;
 
 	private List<PlacedBuildingSpots> m_placedBuildings = new();
+	private List<ColliderPairs> m_colliderPairs = new();
 	private List<GameObject> m_buildings = new();
 	private int m_amountOfPlacementTries = 10;
 	private float m_distanceBetweenBlocks;
+
+	private void Start()
+	{
+		foreach (ColliderPairs pairs in m_colliderPairs)
+		{
+			pairs.IgnoreColliders();
+		}
+	}
 
 	private struct PlacedBuildingSpots
 	{
@@ -31,11 +42,27 @@ public class GenerateBuildings : MonoBehaviour
 			Vector3 offset = newPlacment - m_placement;
 			if (offset.sqrMagnitude < k_closeRadious * k_closeRadious)
 			{
-				Debug.Log("To Close");
 				return false;
 			}
 
 			return true;
+		}
+	}
+
+	private struct ColliderPairs
+	{
+		public Collider firstCollider;
+		public Collider secondCollider;
+
+		public ColliderPairs(Collider first, Collider second)
+		{
+			firstCollider = first;
+			secondCollider = second;
+		}
+
+		public void IgnoreColliders()
+		{
+			Physics.IgnoreCollision(firstCollider, secondCollider);
 		}
 	}
 
@@ -52,7 +79,7 @@ public class GenerateBuildings : MonoBehaviour
 			}
 
 			m_placedBuildings.Add(new PlacedBuildingSpots(newBuildingPlacement));
-			int deltaAmountOfBlocks = Random.Range(m_amountOfBuildingBlocks.x, m_amountOfBuildingBlocks.y) - 2;
+			int deltaAmountOfBlocks = Random.Range(m_amountOfBuildingBlocks.x, m_amountOfBuildingBlocks.y);
 
 			GameObject parentObject = new GameObject($"Building {i}")
 			{
@@ -64,21 +91,40 @@ public class GenerateBuildings : MonoBehaviour
 
 			m_buildings.Add(parentObject);
 
-			GameObject bottom = Instantiate(m_bottomPrefab, parentObject.transform);
+			GameObject bottom = Instantiate(m_bottomPrefab[Random.Range(0, m_bottomPrefab.Length)],
+				parentObject.transform);
 			m_distanceBetweenBlocks = bottom.transform.localScale.y;
 			float m_deltaDistanceBetweenBlocks = m_distanceBetweenBlocks;
-			bottom.transform.localPosition = Vector3.zero;
-
-			for (int j = 0; j < deltaAmountOfBlocks; j++)
+			bottom.transform.localPosition = new Vector3(0, 0, 0);
+			
+			GameObject previousBlock = bottom;
+			for (int j = 1; j < deltaAmountOfBlocks+1; j++)
 			{
 				GameObject middle = Instantiate(m_middlePrefab[Random.Range(0, m_middlePrefab.Length)],
 					parentObject.transform);
 				middle.transform.localPosition = new Vector3(0, m_deltaDistanceBetweenBlocks, 0);
+
+				if (middle.TryGetComponent(out FixedJoint joint))
+				{
+					joint.connectedBody = previousBlock.GetComponent<Rigidbody>();
+				}
+
+				m_colliderPairs.Add(new ColliderPairs(previousBlock.GetComponent<Collider>(),
+					middle.GetComponent<Collider>()));
 				m_deltaDistanceBetweenBlocks = m_distanceBetweenBlocks * (j + 1);
+				previousBlock = middle;
 			}
 
-			GameObject top = Instantiate(m_topPrefab, parentObject.transform);
+			GameObject top = Instantiate(m_topPrefab[Random.Range(0, m_topPrefab.Length)], parentObject.transform);
 			top.transform.localPosition = new Vector3(0, m_deltaDistanceBetweenBlocks, 0);
+
+			if (top.TryGetComponent(out FixedJoint topJoint))
+			{
+				topJoint.connectedBody = previousBlock.GetComponent<Rigidbody>();
+			}
+
+			m_colliderPairs.Add(new ColliderPairs(previousBlock.GetComponent<Collider>(),
+				top.GetComponent<Collider>()));
 		}
 	}
 
@@ -91,7 +137,7 @@ public class GenerateBuildings : MonoBehaviour
 			float z = Random.Range(m_buildingBounds.bounds.min.z, m_buildingBounds.bounds.max.z);
 
 			newBuildingPlacement = new Vector3(x, 0, z);
-			
+
 			for (int j = 0; j < m_placedBuildings.Count; j++)
 			{
 				if (!m_placedBuildings[j].CanPlaceHere(newBuildingPlacement)) ;
@@ -106,14 +152,6 @@ public class GenerateBuildings : MonoBehaviour
 				return;
 			}
 		}
-
-		// for (int j = 0; j < m_placedBuildings.Count; j++)
-		// {
-		// 	if (!m_placedBuildings[j].CanPlaceHere(newBuildingPlacement)) ;
-		// 	{
-		// 		GetNewPlacement(ref newBuildingPlacement);
-		// 	}
-		// }
 	}
 
 	public void CleanUp()
