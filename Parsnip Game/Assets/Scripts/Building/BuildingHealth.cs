@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingHealth : MonoBehaviour
@@ -14,11 +12,14 @@ public class BuildingHealth : MonoBehaviour
         {
             m_myBody = GetComponent<Rigidbody>();
         }
+        
         health -= damage;
-        m_myBody.AddForce((PlayerPosition.Instance.GetPlayerTransform().position - transform.position) * (m_explosionForce * m_myBody.mass));
+        
         if (health < 1)
         {
             Destroy(GetComponent<FixedJoint>());
         }
+        
+        m_myBody.AddForce((PlayerPosition.Instance.GetPlayerTransform().position - transform.position) * (m_explosionForce * m_myBody.mass));
     }
 }
