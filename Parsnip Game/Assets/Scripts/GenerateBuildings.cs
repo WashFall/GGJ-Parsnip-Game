@@ -16,11 +16,21 @@ public class GenerateBuildings : MonoBehaviour
 	private List<PlacedBuildingSpots> m_placedBuildings = new();
 	private List<ColliderPairs> m_colliderPairs = new();
 	private List<GameObject> m_buildings = new();
+	private List<Rigidbody> m_rigidBodiesToSleep= new();
 	private int m_amountOfPlacementTries = 10;
 	private float m_distanceBetweenBlocks;
 
+	private void Awake()
+	{
+		
+	}
+
 	private void Start()
 	{
+		foreach (Rigidbody body in m_rigidBodiesToSleep)
+		{
+			body.Sleep();
+		}
 		foreach (ColliderPairs pairs in m_colliderPairs)
 		{
 			pairs.IgnoreColliders();
@@ -106,7 +116,9 @@ public class GenerateBuildings : MonoBehaviour
 
 				if (middle.TryGetComponent(out FixedJoint joint))
 				{
-					joint.connectedBody = previousBlock.GetComponent<Rigidbody>();
+					Rigidbody rb = previousBlock.GetComponent<Rigidbody>();
+					joint.connectedBody = rb;
+					m_rigidBodiesToSleep.Add(rb);
 				}
 
 				m_colliderPairs.Add(new ColliderPairs(previousBlock.GetComponent<Collider>(),
@@ -122,7 +134,7 @@ public class GenerateBuildings : MonoBehaviour
 			{
 				topJoint.connectedBody = previousBlock.GetComponent<Rigidbody>();
 			}
-
+			m_rigidBodiesToSleep.Add(top.GetComponent<Rigidbody>());
 			m_colliderPairs.Add(new ColliderPairs(previousBlock.GetComponent<Collider>(),
 				top.GetComponent<Collider>()));
 		}
@@ -160,7 +172,8 @@ public class GenerateBuildings : MonoBehaviour
 		{
 			DestroyImmediate(building);
 		}
-
+		m_rigidBodiesToSleep.Clear();
 		m_placedBuildings.Clear();
+		m_colliderPairs.Clear();
 	}
 }
