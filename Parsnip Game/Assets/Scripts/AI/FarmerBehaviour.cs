@@ -11,7 +11,6 @@ public class FarmerBehaviour : MonoBehaviour
     AIPath pathFinder;
     AIDestinationSetter setDestination;
 
-    [SerializeField] float closeDistanceToTarget;
     [SerializeField] float patrolSpeed;
     [SerializeField] float seekSpeed;
 
@@ -32,7 +31,7 @@ public class FarmerBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (!playerCaught && !fov.TargetInView(target)) { Patrol(); }
+        if (!playerCaught && !fov.TargetInView(playerPosition)) { Patrol(); }
     }
 
     Transform SelectNewRandomSpot()
@@ -51,31 +50,30 @@ public class FarmerBehaviour : MonoBehaviour
 
     void Patrol()
     {
-        if(fov.TargetInView(target))
+        if(fov.TargetInView(playerPosition))
         {
             pathFinder.maxSpeed = seekSpeed;
-            setDestination.target = target;
+            setDestination.target = playerPosition;
 
-            if(Vector3.Distance(transform.position, target.position) < fov.innerRadius) { CatchTarget(); }
+            if(Vector3.Distance(transform.position, playerPosition.position) < fov.innerRadius) { CatchTarget(); }
         }
 
-        if (!explosionHeard && !fov.TargetInView(target))
+        if (!explosionHeard && !fov.TargetInView(playerPosition))
         {
-            if (Vector3.Distance(transform.position, setDestination.target.position) < closeDistanceToTarget)
+            if (Vector3.Distance(transform.position, setDestination.target.position) < fov.innerRadius)
             {
                 setDestination.target = SelectNewRandomSpot();
-                Debug.Log("Hej");
             }
         }
 
-        if (explosionHeard && !fov.TargetInView(target))
+        if (explosionHeard && !fov.TargetInView(playerPosition))
         {
             target = playerPosition.GetComponent<Attack>().currentExplosionSite;
 
             pathFinder.maxSpeed = seekSpeed;
             setDestination.target = target;
 
-            if (Vector3.Distance(transform.position, target.position) > closeDistanceToTarget)
+            if (Vector3.Distance(transform.position, target.position) > fov.innerRadius)
             {
                 //TODO: Add question mark above head and fix CoRoutine
                 explosionHeard = false;
