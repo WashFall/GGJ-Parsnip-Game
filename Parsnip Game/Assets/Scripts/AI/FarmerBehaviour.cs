@@ -7,6 +7,7 @@ public class FarmerBehaviour : MonoBehaviour
     public Transform playerPosition;
 
     Transform target;
+    FOV fov;
     AIPath pathFinder;
     AIDestinationSetter setDestination;
 
@@ -22,6 +23,7 @@ public class FarmerBehaviour : MonoBehaviour
     {
         pathFinder = GetComponent<AIPath>();
         setDestination = GetComponent<AIDestinationSetter>();
+        fov = GetComponent<FOV>();
 
         setDestination.target = SelectNewRandomSpot();
 
@@ -30,7 +32,7 @@ public class FarmerBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (!playerCaught) { Patrol(); }
+        if (!playerCaught && !fov.TargetInView(target)) { Patrol(); }
     }
 
     Transform SelectNewRandomSpot()
@@ -49,7 +51,15 @@ public class FarmerBehaviour : MonoBehaviour
 
     void Patrol()
     {
-        if (!explosionHeard)
+        if(fov.TargetInView(target))
+        {
+            pathFinder.maxSpeed = seekSpeed;
+            setDestination.target = target;
+
+            if(Vector3.Distance(transform.position, target.position) < fov.innerRadius) { CatchTarget(); }
+        }
+
+        if (!explosionHeard && !fov.TargetInView(target))
         {
             if (Vector3.Distance(transform.position, setDestination.target.position) < closeDistanceToTarget)
             {
@@ -58,7 +68,7 @@ public class FarmerBehaviour : MonoBehaviour
             }
         }
 
-        if (explosionHeard)
+        if (explosionHeard && !fov.TargetInView(target))
         {
             target = playerPosition.GetComponent<Attack>().currentExplosionSite;
 
@@ -67,20 +77,10 @@ public class FarmerBehaviour : MonoBehaviour
 
             if (Vector3.Distance(transform.position, target.position) > closeDistanceToTarget)
             {
-                //TODO: Add question mark above head
+                //TODO: Add question mark above head and fix CoRoutine
                 explosionHeard = false;
                 Invoke(nameof(Patrol), 2);
             }
-        }
-
-
-    }
-
-    private void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.tag == "Player")
-        {
-            CatchTarget();
         }
     }
 
