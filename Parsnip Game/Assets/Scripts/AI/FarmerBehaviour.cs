@@ -11,8 +11,8 @@ public class FarmerBehaviour : MonoBehaviour
     AIDestinationSetter setDestination;
 
     [SerializeField] float closeDistanceToTarget;
-    float patrolSpeed;
-    float seekSpeed;
+    [SerializeField] float patrolSpeed;
+    [SerializeField] float seekSpeed;
 
     int randomDestinationSpot;
 
@@ -20,13 +20,21 @@ public class FarmerBehaviour : MonoBehaviour
 
     void Start()
     {
+        pathFinder = GetComponent<AIPath>();
         setDestination = GetComponent<AIDestinationSetter>();
 
-        Patrol();
+        setDestination.target = SelectNewRandomSpot();
+    }
+
+    private void Update()
+    {
+        if (!playerCaught) { Patrol(); }
     }
 
     Transform SelectNewRandomSpot()
     {
+        playerCaught = false;
+
         pathFinder.maxSpeed = patrolSpeed;
         int newRandomDestination = Random.Range(0, patrolSpots.Length);
 
@@ -45,35 +53,32 @@ public class FarmerBehaviour : MonoBehaviour
 
     void Patrol()
     {
-        playerCaught = false;
-        setDestination.target = SelectNewRandomSpot();
-
-        if (false/*sound of explosion is heard*/) 
+        if (Vector3.Distance(transform.position, setDestination.target.position) < closeDistanceToTarget)
         {
-            target.position = playerPosition.position;
+            setDestination.target = SelectNewRandomSpot();
+            Debug.Log("Hej");
+        }
+        //TODO: Make below event
+        //if (false/*sound of explosion is heard*/)
+        //{
+        //    target.position = playerPosition.position;
 
-            pathFinder.maxSpeed = seekSpeed;
-            setDestination.target = target;
-            
-            if(Vector2.Distance(transform.position, target.position) > closeDistanceToTarget)
-            {
-                //TODO: Add question mark above head
-                Invoke(nameof(Patrol), 2);
-            }
-        }
-        else
-        {
-            if (Vector2.Distance(transform.position, patrolSpots[randomDestinationSpot].position) < closeDistanceToTarget)
-            {
-                Patrol();
-            }
-        }
+        //    pathFinder.maxSpeed = seekSpeed;
+        //    setDestination.target = target;
+
+        //    if (Vector3.Distance(transform.position, target.position) > closeDistanceToTarget)
+        //    {
+        //        //TODO: Add question mark above head
+        //        Invoke(nameof(Patrol), 2);
+        //    }
+        //}
+
 
     }
 
     private void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player")
         {
             CatchTarget();
         }
