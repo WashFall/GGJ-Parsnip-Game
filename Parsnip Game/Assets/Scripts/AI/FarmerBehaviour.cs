@@ -16,7 +16,7 @@ public class FarmerBehaviour : MonoBehaviour
 
     int randomDestinationSpot;
 
-    bool playerCaught;
+    bool playerCaught, explosionHeard;
 
     void Start()
     {
@@ -24,6 +24,8 @@ public class FarmerBehaviour : MonoBehaviour
         setDestination = GetComponent<AIDestinationSetter>();
 
         setDestination.target = SelectNewRandomSpot();
+
+        Attack.explosion += () => { explosionHeard = true; };
     }
 
     private void Update()
@@ -59,19 +61,20 @@ public class FarmerBehaviour : MonoBehaviour
             Debug.Log("Hej");
         }
         //TODO: Make below event
-        //if (false/*sound of explosion is heard*/)
-        //{
-        //    target.position = playerPosition.position;
+        if (explosionHeard)
+        {
+            target.position = playerPosition.position;
 
-        //    pathFinder.maxSpeed = seekSpeed;
-        //    setDestination.target = target;
+            pathFinder.maxSpeed = seekSpeed;
+            setDestination.target = target;
 
-        //    if (Vector3.Distance(transform.position, target.position) > closeDistanceToTarget)
-        //    {
-        //        //TODO: Add question mark above head
-        //        Invoke(nameof(Patrol), 2);
-        //    }
-        //}
+            if (Vector3.Distance(transform.position, target.position) > closeDistanceToTarget)
+            {
+                //TODO: Add question mark above head
+                explosionHeard = false;
+                Invoke(nameof(Patrol), 2);
+            }
+        }
 
 
     }

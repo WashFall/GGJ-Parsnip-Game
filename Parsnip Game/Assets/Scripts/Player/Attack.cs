@@ -15,6 +15,8 @@ public class Attack : MonoBehaviour
     private BuildingHealth buildingHealth;
     
     public ParticleSystem scatterFx;
+    public delegate void Explosion();
+    public static Explosion explosion;
 
     private SphereCollider attackSphere;
     private SphereCollider maxRadius;
@@ -50,6 +52,7 @@ public class Attack : MonoBehaviour
         {
             scatterFx.Emit(5000);
             DoDamage();
+            explosion?.Invoke();
         }
 
         if (attackProgress == 0)

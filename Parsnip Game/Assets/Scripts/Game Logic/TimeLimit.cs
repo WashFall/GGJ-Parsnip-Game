@@ -3,22 +3,23 @@ using TMPro;
 
 public class TimeLimit : MonoBehaviour
 {
-    public TMP_Text timerText;
-    public float timeSpan;
+    public float timeSpanInMinutes;
 
     private float timeLeft;
     private float startTime;
+    private TMP_Text timerText;
 
     void Start()
     {
+        timerText = GetComponent<TMP_Text>();
         startTime = Time.time;
-        timeSpan *= 60;
+        timeSpanInMinutes *= 60;
     }
 
     void Update()
     {
         float timerCount = Time.time - startTime;
-        timeLeft = timeSpan - timerCount;
+        timeLeft = timeSpanInMinutes - timerCount;
         float minutes = Mathf.Floor(timeLeft / 60);
         float seconds = Mathf.Floor(timeLeft % 60);
         timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
