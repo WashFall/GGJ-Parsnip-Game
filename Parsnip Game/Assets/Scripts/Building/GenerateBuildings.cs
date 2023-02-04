@@ -152,7 +152,7 @@ public class GenerateBuildings : MonoBehaviour
 
 			for (int j = 0; j < m_placedBuildings.Count; j++)
 			{
-				if (!m_placedBuildings[j].CanPlaceHere(newBuildingPlacement)) ;
+				if (!m_placedBuildings[j].CanPlaceHere(newBuildingPlacement))
 				{
 					canPlace = false;
 					break;

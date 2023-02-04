@@ -12,7 +12,7 @@ public class Attack : MonoBehaviour
 {
     private InputManager inputManager;
     private CharacterMovement characterMovement;
-    private BuildingHealth buildingHealth;
+    private List<BuildingHealth> buildingHealth;
     
     public ParticleSystem scatterFx;
     public delegate void Explosion();
@@ -21,8 +21,8 @@ public class Attack : MonoBehaviour
     public Transform currentExplosionSite;
 
     private SphereCollider attackSphere;
-    private SphereCollider maxRadius;
-    private Rigidbody rb;
+    [SerializeField]private SphereCollider maxRadius;
+    [SerializeField] private Rigidbody rb;
 
     private bool prematureAttack;
     private bool hasAttackedRecently;
@@ -36,7 +36,6 @@ public class Attack : MonoBehaviour
         characterMovement = GetComponent<CharacterMovement>();
         
         attackSphere = GetComponent<SphereCollider>();
-        maxRadius = transform.GetChild(2).GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -47,14 +46,14 @@ public class Attack : MonoBehaviour
         else
             ReleaseAttack();
 
-        float activeRadius = attackProgress * maxRadius.radius;
-        attackSphere.radius = activeRadius;
+        Debug.Log(attackProgress);
+
         
         if (attackProgress >= 1 && !hasAttackedRecently)
         {
             hasAttackedRecently = true;
             scatterFx.Emit(5000);
-            DoDamage();
+            ExplosionDamage(transform.position, maxRadius.radius);
             explosion?.Invoke();
             GameObject newExplosion = Instantiate(explosionSite, transform.position, Quaternion.identity);
             currentExplosionSite = newExplosion.transform;
@@ -70,9 +69,9 @@ public class Attack : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
         characterMovement.canMove = false;
-        if (attackProgress < 1) attackProgress += 0.5f * Time.deltaTime;
+        if (attackProgress < 1 && !hasAttackedRecently) attackProgress += 0.5f * Time.deltaTime;
 
-        if (attackProgress > 1)
+        if (attackProgress > 1 && !hasAttackedRecently)
         {
             attackProgress = 1;
         }
@@ -95,9 +94,25 @@ public class Attack : MonoBehaviour
         if (prematureAttack)
             damage *= 0.5f;
 
-        buildingHealth.DamageHealth(damage);
+        for (int i = 0; i < buildingHealth.Count; i++)
+        {
+            buildingHealth[i].DamageHealth(damage);
+        }
         //Debug.Log("Damage: " + damage);
         //Debug.Log("We did some damage! Health left: " + buildingHealth.health);
+    }
+    void ExplosionDamage(Vector3 center, float radius)
+    {
+        int maxColliders = 10;
+        Collider[] hitColliders = new Collider[maxColliders];
+        int numColliders = Physics.OverlapSphereNonAlloc(center, radius, hitColliders);
+        for (int i = 0; i < numColliders; i++)
+        {
+            if (hitColliders[i].TryGetComponent(out BuildingHealth bh))
+            {
+                bh.DamageHealth(damage);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -105,7 +120,7 @@ public class Attack : MonoBehaviour
         if (other.tag == "Building")
         {
             //Debug.Log("I found a building!");
-            buildingHealth = other.GetComponent<BuildingHealth>();
+            buildingHealth.Add(other.GetComponentInChildren<BuildingHealth>());
         }
     }
 
@@ -114,7 +129,7 @@ public class Attack : MonoBehaviour
         if (other.tag == "Building")
         {
             //Debug.Log("Bye building!");
-            buildingHealth = null;
+            buildingHealth.Remove(other.GetComponent<BuildingHealth>());
         }
     }
 
