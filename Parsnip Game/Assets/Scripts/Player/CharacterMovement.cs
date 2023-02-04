@@ -13,6 +13,7 @@ public class CharacterMovement : MonoBehaviour
     public float rotateSpeed;
     public Camera playerCamera;
 
+
     void Start()
     {
         inputManager = GetComponent<InputManager>();

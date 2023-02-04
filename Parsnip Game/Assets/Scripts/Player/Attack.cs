@@ -18,8 +18,9 @@ public class Attack : MonoBehaviour
     public static Explosion explosion;
     public GameObject explosionSite;
     public Transform currentExplosionSite;
+    public GameObject root;
 
-    [SerializeField]private SphereCollider maxRadius;
+    [SerializeField] private SphereCollider maxRadius;
     [SerializeField] private Rigidbody rb;
 
     private bool prematureAttack;
@@ -91,6 +92,7 @@ public class Attack : MonoBehaviour
             if (hitColliders[i].TryGetComponent(out BuildingHealth bh))
             {
                 bh.DamageHealth(damage);
+                Instantiate(root);
             }
         }
     }
