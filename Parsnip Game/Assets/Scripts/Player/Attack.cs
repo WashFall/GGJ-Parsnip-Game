@@ -91,8 +91,9 @@ public class Attack : MonoBehaviour
         {
             if (hitColliders[i].TryGetComponent(out BuildingHealth bh))
             {
+                Vector3 spawnPos = bh.transform.position;
                 bh.DamageHealth(damage);
-                Instantiate(root);
+                Instantiate(root, spawnPos, Quaternion.identity);
             }
         }
     }
