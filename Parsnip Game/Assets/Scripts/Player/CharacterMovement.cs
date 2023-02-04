@@ -12,7 +12,6 @@ public class CharacterMovement : MonoBehaviour
     public float moveSpeed;
     public float rotateSpeed;
     public Camera playerCamera;
-    public bool canMove;
 
     void Start()
     {
@@ -28,7 +27,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(canMove) Move();
+        Move();
     }
 
     private void Move()
