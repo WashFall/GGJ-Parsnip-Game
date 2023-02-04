@@ -34,14 +34,12 @@ public class Attack : MonoBehaviour
     private void DoAttack()
     {
         if (attackProgress < 1) attackProgress += 0.5f * Time.deltaTime;
-
         if (attackProgress > 1) attackProgress = 1;
     }
 
     private void ReleaseAttack()
     {
         if (attackProgress > 0) attackProgress -= Time.deltaTime;
-
         if (attackProgress < 0) attackProgress = 0;
     }
 }
