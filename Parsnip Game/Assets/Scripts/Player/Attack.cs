@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,10 +10,14 @@ using UnityEngine.InputSystem;
 public class Attack : MonoBehaviour
 {
     private InputManager inputManager;
+    private CharacterMovement characterMovement;
+    
     public ParticleSystem scatterFx;
+
 
     private SphereCollider attackSphere;
     private SphereCollider maxRadius;
+    private Rigidbody rb;
 
     private float attackProgress;
     private float attackRadius;
@@ -20,8 +25,11 @@ public class Attack : MonoBehaviour
     private void Start()
     {
         inputManager = GetComponent<InputManager>();
+        characterMovement = GetComponent<CharacterMovement>();
+        
         attackSphere = GetComponent<SphereCollider>();
         maxRadius = transform.GetChild(2).GetComponent<SphereCollider>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -37,11 +45,17 @@ public class Attack : MonoBehaviour
 
         float i = attackProgress * maxRadius.radius;
         attackSphere.radius = i;
-        //Debug.Log(attackProgress);
+
+        if (attackProgress == 0)
+        {
+            characterMovement.canMove = true;
+        }
     }
 
     private void DoAttack()
     {
+        rb.velocity = Vector3.zero;
+        characterMovement.canMove = false;
         if (attackProgress < 1) attackProgress += 0.5f * Time.deltaTime;
         if (attackProgress > 1) attackProgress = 1;
     }
@@ -51,4 +65,6 @@ public class Attack : MonoBehaviour
         if (attackProgress > 0) attackProgress -= Time.deltaTime;
         if (attackProgress < 0) attackProgress = 0;
     }
+
+
 }
