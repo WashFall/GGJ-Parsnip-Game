@@ -27,13 +27,14 @@ public class GenerateBuildings : MonoBehaviour
 
 	private void Start()
 	{
-		foreach (Rigidbody body in m_rigidBodiesToSleep)
-		{
-			body.Sleep();
-		}
 		foreach (ColliderPairs pairs in m_colliderPairs)
 		{
 			pairs.IgnoreColliders();
+		}
+		
+		foreach (Rigidbody body in m_rigidBodiesToSleep)
+		{
+			body.Sleep();
 		}
 	}
 
