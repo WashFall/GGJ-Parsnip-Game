@@ -6,13 +6,9 @@ public class BuildingHealth : MonoBehaviour
 {
     public float health = 100f;
 
-    void Start()
+    private void Update()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        if (health <= 0)
+            Destroy(gameObject);
     }
 }
