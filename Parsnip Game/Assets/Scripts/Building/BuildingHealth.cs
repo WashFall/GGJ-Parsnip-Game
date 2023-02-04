@@ -4,7 +4,7 @@ public class BuildingHealth : MonoBehaviour
 {
     public float health = 100f;
     private Rigidbody m_myBody;
-    private float m_explosionForce = 10f;
+    private float m_explosionForce = 1000f;
 
     public void DamageHealth(float damage)
     {
@@ -20,6 +20,6 @@ public class BuildingHealth : MonoBehaviour
             Destroy(GetComponent<FixedJoint>());
         }
         
-        m_myBody.AddForce((PlayerPosition.Instance.GetPlayerTransform().position - transform.position) * (m_explosionForce * m_myBody.mass));
+        m_myBody.AddForce(( transform.position - PlayerPosition.Instance.GetPlayerTransform().position) * (m_explosionForce * m_myBody.mass));
     }
 }
