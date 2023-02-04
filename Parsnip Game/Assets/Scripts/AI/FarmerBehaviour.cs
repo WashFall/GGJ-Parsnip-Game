@@ -31,7 +31,7 @@ public class FarmerBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (!playerCaught && !fov.TargetInView(playerPosition)) { Patrol(); }
+        if (!playerCaught) { Patrol(); }
     }
 
     Transform SelectNewRandomSpot()
@@ -50,23 +50,14 @@ public class FarmerBehaviour : MonoBehaviour
 
     void Patrol()
     {
-        if(fov.TargetInView(playerPosition))
+        if(fov.TargetInView(playerPosition) || Vector3.Distance(transform.position, playerPosition.position) < fov.outerRadius)
         {
             pathFinder.maxSpeed = seekSpeed;
             setDestination.target = playerPosition;
 
             if(Vector3.Distance(transform.position, playerPosition.position) < fov.innerRadius) { CatchTarget(); }
         }
-
-        if (!explosionHeard && !fov.TargetInView(playerPosition))
-        {
-            if (Vector3.Distance(transform.position, setDestination.target.position) < fov.innerRadius)
-            {
-                setDestination.target = SelectNewRandomSpot();
-            }
-        }
-
-        if (explosionHeard && !fov.TargetInView(playerPosition))
+        else if (explosionHeard && !fov.TargetInView(playerPosition))
         {
             target = playerPosition.GetComponent<Attack>().currentExplosionSite;
 
@@ -78,6 +69,13 @@ public class FarmerBehaviour : MonoBehaviour
                 //TODO: Add question mark above head and fix CoRoutine
                 explosionHeard = false;
                 Invoke(nameof(Patrol), 2);
+            }
+        }
+        else if (!explosionHeard && !fov.TargetInView(playerPosition))
+        {
+            if (Vector3.Distance(transform.position, setDestination.target.position) < fov.innerRadius)
+            {
+                setDestination.target = SelectNewRandomSpot();
             }
         }
     }
