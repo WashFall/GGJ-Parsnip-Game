@@ -176,7 +176,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c09aae7f3d8358b479e94280a14782e3, type: 2}
+  - {fileID: 2100000, guid: 4fe35d1f78e1a4c4fae041fa501c544c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -896,86 +896,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1423129474}
     m_Modifications:
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: simulationSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: CollisionModule.type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: ShapeModule.arc.mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: VelocityModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: CollisionModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: VelocityModule.y.scalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: ShapeModule.radiusThickness
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: VelocityModule.inWorldSpace
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: CollisionModule.maxKillSpeed
-      value: 10000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: VelocityModule.x.minMaxState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: VelocityModule.y.minMaxState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: VelocityModule.z.minMaxState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: VelocityModule.orbitalY.scalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: CollisionModule.m_Bounce.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: CollisionModule.m_Dampen.scalar
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: InitialModule.startSpeed.minScalar
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: CollisionModule.collidesWith.m_Bits
-      value: 127
-      objectReference: {fileID: 0}
-    - target: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
-      propertyPath: InitialModule.startSpeed.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
+    - target: {fileID: 4880098551213599985, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4880098551213599986, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
       propertyPath: m_Name
       value: ScatterFx
@@ -1047,6 +971,7 @@ GameObject:
   - component: {fileID: 1423129475}
   - component: {fileID: 1423129477}
   - component: {fileID: 1423129476}
+  - component: {fileID: 1423129478}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -1148,6 +1073,7 @@ Transform:
   m_Children:
   - {fileID: 1589426057}
   - {fileID: 1399640217}
+  - {fileID: 1919487380}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1218,6 +1144,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scatterFx: {fileID: 1862041572}
+--- !u!135 &1423129478
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423129469}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.00001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1466670094
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,6 +1428,51 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
   m_PrefabInstance: {fileID: 1399640216}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1919487379
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1919487380}
+  - component: {fileID: 1919487381}
+  m_Layer: 7
+  m_Name: MaxAttackRadius
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1919487380
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919487379}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1423129474}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1919487381
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919487379}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1939912073
 GameObject:
   m_ObjectHideFlags: 0
