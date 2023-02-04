@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class FarmerBehaviour : MonoBehaviour
 {
+    public GameObject player;
+    
     public Transform[] patrolSpots;
-    public Transform playerPosition;
 
     Transform target;
     FOV fov;
@@ -13,6 +14,7 @@ public class FarmerBehaviour : MonoBehaviour
 
     [SerializeField] float patrolSpeed;
     [SerializeField] float seekSpeed;
+    [SerializeField] float liftedHeight;
 
     int randomDestinationSpot;
 
@@ -50,16 +52,16 @@ public class FarmerBehaviour : MonoBehaviour
 
     void Patrol()
     {
-        if(fov.TargetInView(playerPosition) || Vector3.Distance(transform.position, playerPosition.position) < fov.outerRadius)
+        if(fov.TargetInView(player.transform) || Vector3.Distance(transform.position, player.transform.position) < fov.outerRadius)
         {
             pathFinder.maxSpeed = seekSpeed;
-            setDestination.target = playerPosition;
+            setDestination.target = player.transform;
 
-            if(Vector3.Distance(transform.position, playerPosition.position) < fov.innerRadius) { CatchTarget(); }
+            if(Vector3.Distance(transform.position, player.transform.position) < fov.innerRadius) { CatchTarget(); }
         }
-        else if (explosionHeard && !fov.TargetInView(playerPosition))
+        else if (explosionHeard && !fov.TargetInView(player.transform))
         {
-            target = playerPosition.GetComponent<Attack>().currentExplosionSite;
+            target = player.GetComponent<Attack>().currentExplosionSite;
 
             pathFinder.maxSpeed = seekSpeed;
             setDestination.target = target;
@@ -71,7 +73,7 @@ public class FarmerBehaviour : MonoBehaviour
                 Invoke(nameof(Patrol), 2);
             }
         }
-        else if (!explosionHeard && !fov.TargetInView(playerPosition))
+        else if (!explosionHeard && !fov.TargetInView(player.transform))
         {
             if (Vector3.Distance(transform.position, setDestination.target.position) < fov.innerRadius)
             {
@@ -82,8 +84,13 @@ public class FarmerBehaviour : MonoBehaviour
 
     void CatchTarget()
     {
+        CharacterMovement playerMovement = player.GetComponent<CharacterMovement>();
+        
         playerCaught = true;
+        playerMovement.canMove = false;
 
+        player.transform.SetParent(transform, false);
+        player.transform.position = new Vector3(transform.position.x, transform.position.y + liftedHeight, transform.position.z);
         //Do some animation
         //Player lose life
         //Carry player off screen => OnComplete Patrol();
