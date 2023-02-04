@@ -187,12 +187,12 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Attack"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""807b41e5-e06c-4064-9fc3-3786e9084939"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Integer"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
