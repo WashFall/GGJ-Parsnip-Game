@@ -95,7 +95,7 @@ public class Attack : MonoBehaviour
         if (prematureAttack)
             damage *= 0.5f;
 
-        buildingHealth.health -= damage;
+        buildingHealth.DamageHealth(damage);
         //Debug.Log("Damage: " + damage);
         //Debug.Log("We did some damage! Health left: " + buildingHealth.health);
     }

@@ -5,10 +5,20 @@ using UnityEngine;
 public class BuildingHealth : MonoBehaviour
 {
     public float health = 100f;
+    private Rigidbody m_myBody;
+    private float m_explosionForce = 10f;
 
-    private void Update()
+    public void DamageHealth(float damage)
     {
-        if (health <= 0)
-            Destroy(gameObject);
+        if (m_myBody == null)
+        {
+            m_myBody = GetComponent<Rigidbody>();
+        }
+        health -= damage;
+        m_myBody.AddForce((PlayerPosition.Instance.GetPlayerTransform().position - transform.position) * m_explosionForce);
+        if (health < 1)
+        {
+            Destroy(GetComponent<FixedJoint>());
+        }
     }
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1303339207242546576}
   - component: {fileID: -483907132123346399}
   - component: {fileID: 2935981992995455586}
+  - component: {fileID: 255422587272854779}
   m_Layer: 0
   m_Name: Middle 1
   m_TagString: Untagged
@@ -124,9 +125,22 @@ FixedJoint:
   m_GameObject: {fileID: 101172105693918224}
   m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: Infinity
+  m_BreakForce: 1000
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &255422587272854779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101172105693918224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aecea914ca49f34ba65e24e9f759dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
