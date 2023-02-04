@@ -45,12 +45,6 @@ public class FarmerBehaviour : MonoBehaviour
         randomDestinationSpot = newRandomDestination;
 
         return patrolSpots[randomDestinationSpot];
-        //IF sound is heard
-        //Move faster towards sound(target)
-        //IF target is reached (and no player is found)
-        //=> SearchForTarget()
-        //ELSE IF target is reached (and colliding with player catch area)
-        //CatchTarget()
     }
 
     void Patrol()
@@ -63,7 +57,7 @@ public class FarmerBehaviour : MonoBehaviour
                 Debug.Log("Hej");
             }
         }
-        //TODO: Make below event
+
         if (explosionHeard)
         {
             target = playerPosition.GetComponent<Attack>().currentExplosionSite;
