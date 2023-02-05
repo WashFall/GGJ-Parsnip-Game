@@ -204,7 +204,6 @@ MonoBehaviour:
   - {fileID: 0}
   pickedUpLocation: {fileID: 0}
   offScreenLocation: {fileID: 0}
-  testSpeed: 1
   patrolSpeed: 5
   seekSpeed: 10
   liftedHeight: 3
@@ -222,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   innerRadius: 6.6
   outerRadius: 11
-  fovRadius: 22.7
+  fovRadius: 50
   fovAngle: 52
   obstacleMask:
     serializedVersion: 2
