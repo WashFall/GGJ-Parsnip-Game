@@ -45,5 +45,15 @@ public class Score : MonoBehaviour
         if (scene.name == "MainMenu") return;
 
         text = GameObject.FindGameObjectWithTag("ScoreText").GetComponent<TMP_Text>();
+
+        if (scene.name == "Main") return;
+
+        SetScoreTextOnEndScenes();
+
+    }
+
+    private void SetScoreTextOnEndScenes()
+    {
+        text.text = $"Score: {scoreing}";
     }
 }
