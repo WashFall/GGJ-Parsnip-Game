@@ -80056,6 +80056,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Score
       objectReference: {fileID: 0}
+    - target: {fileID: 4136978028328746045, guid: 25f8f3314b924dd428ec53a47d1c1c7b, type: 3}
+      propertyPath: winScore
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4136978028328746046, guid: 25f8f3314b924dd428ec53a47d1c1c7b, type: 3}
       propertyPath: m_RootOrder
       value: 10

@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 0}
   scoreing: 0
-  winScore: 0
+  winScore: 200
