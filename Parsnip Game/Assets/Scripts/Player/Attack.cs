@@ -25,6 +25,8 @@ public class Attack : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Slider expSlider;
 
+    private PlaySoundMultiple playSound;
+
     private bool prematureAttack;
     private bool hasAttackedRecently;
 
@@ -34,7 +36,7 @@ public class Attack : MonoBehaviour
     private void Start()
     {
         inputManager = GetComponent<InputManager>();
-        
+        playSound = GetComponent<PlaySoundMultiple>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -53,6 +55,7 @@ public class Attack : MonoBehaviour
             explosion?.Invoke();
             GameObject newExplosion = Instantiate(explosionSite, transform.position, Quaternion.identity);
             currentExplosionSite = newExplosion.transform;
+            playSound.PlaySound("Parsnip big");
             StartCoroutine(Stuck());
         }
 
@@ -102,6 +105,7 @@ public class Attack : MonoBehaviour
     private IEnumerator DoRoots(Vector3 spawnPos)
     {
         Roots root = Instantiate(rootPrefab, spawnPos, Quaternion.identity);
+        playSound.PlaySound("Roots");
         for (float i = 0; i < 1; i += Time.deltaTime)
         {
             root.rate = i;
