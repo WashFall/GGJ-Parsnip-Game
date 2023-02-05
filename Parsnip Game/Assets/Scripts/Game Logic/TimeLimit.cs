@@ -27,7 +27,7 @@ public class TimeLimit : MonoBehaviour
 
         if (timeLeft <= 0)
         {
-            SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene("Win");
         }
     }
 }
