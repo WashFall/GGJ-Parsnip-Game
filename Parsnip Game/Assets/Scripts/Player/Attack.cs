@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 public class Attack : MonoBehaviour
 {
     private InputManager inputManager;
-    private List<BuildingHealth> buildingHealth;
+    private List<BuildingHealth> buildingHealth = new ();
 
     public ParticleSystem scatterFx;
     public delegate void Explosion();
