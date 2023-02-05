@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   innerRadius: 6.6
   outerRadius: 11
-  fovRadius: 50
+  fovRadius: 30
   fovAngle: 52
   obstacleMask:
     serializedVersion: 2

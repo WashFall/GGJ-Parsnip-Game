@@ -98,6 +98,7 @@ public class Attack : MonoBehaviour
                 Vector3 spawnPos = bh.transform.position;
                 bh.DamageHealth(damage);
                 StartCoroutine(DoRoots(spawnPos));
+                playSound.PlaySound("Roots ");
             }
         }
     }
@@ -105,7 +106,6 @@ public class Attack : MonoBehaviour
     private IEnumerator DoRoots(Vector3 spawnPos)
     {
         Roots root = Instantiate(rootPrefab, spawnPos, Quaternion.identity);
-        playSound.PlaySound("Roots");
         for (float i = 0; i < 1; i += Time.deltaTime)
         {
             root.rate = i;

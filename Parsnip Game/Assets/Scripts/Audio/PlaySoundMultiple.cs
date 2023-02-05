@@ -19,6 +19,25 @@ public class PlaySoundMultiple : MonoBehaviour
     {
         this.audioName = audioName;
         audioSource.volume = VolumeData.volume;
-        audioSource.PlayOneShot(audioClips.First(clip => clip.name.Equals(this.audioName)));
+
+        switch (audioName)
+        {
+            case "Parsnip big":
+                audioSource.PlayOneShot(audioClips[1]);
+                break;
+            case "Roots ":
+                audioSource.PlayOneShot(audioClips[3]);
+                break;
+            case "Farmer":
+                audioSource.PlayOneShot(audioClips[0]);
+                break;
+            case "Farmer 2":
+                audioSource.PlayOneShot(audioClips[1]);
+                break;
+            case "Farmer 3":
+                audioSource.PlayOneShot(audioClips[2]);
+                break;
+            
+        }
     }
 }
