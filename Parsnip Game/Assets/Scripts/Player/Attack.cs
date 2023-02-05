@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(InputManager))]
 
@@ -22,6 +23,7 @@ public class Attack : MonoBehaviour
 
     [SerializeField] private SphereCollider maxRadius;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Slider expSlider;
 
     private bool prematureAttack;
     private bool hasAttackedRecently;
@@ -42,6 +44,7 @@ public class Attack : MonoBehaviour
             StartAttack();
 
 
+        expSlider.value = attackProgress;
         if (attackProgress >= 1 && !hasAttackedRecently)
         {
             hasAttackedRecently = true;
