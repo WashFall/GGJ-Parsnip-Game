@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class FarmerBehaviour : MonoBehaviour
 {
+    public delegate void LoseHealth();
+    public static LoseHealth loseHealth;
+
     public GameObject player;
 
     public CinemachineVirtualCamera virtualCamera;
@@ -22,6 +25,7 @@ public class FarmerBehaviour : MonoBehaviour
     CharacterMovement playerMovement;
     Rigidbody playerRb;
     PlaySoundMultiple playSound;
+    PlayerHealth playerHealth;
 
     [SerializeField] float patrolSpeed;
     [SerializeField] float seekSpeed;
@@ -29,7 +33,7 @@ public class FarmerBehaviour : MonoBehaviour
 
     int randomDestinationSpot;
 
-    bool playerCaught, explosionHeard; 
+    bool playerCaught, explosionHeard;
     bool justNoticedPlayer = true;
 
     void Start()
@@ -40,6 +44,7 @@ public class FarmerBehaviour : MonoBehaviour
         playerMovement = player.GetComponent<CharacterMovement>();
         playerRb = player.GetComponent<Rigidbody>();
         playSound = GetComponent<PlaySoundMultiple>();
+        playerHealth = player.GetComponent<PlayerHealth>();
 
         setDestination.target = SelectNewRandomSpot();
 
@@ -108,9 +113,11 @@ public class FarmerBehaviour : MonoBehaviour
 
     IEnumerator CatchTarget()
     {
-        //TODO:Player lose life
+        playerHealth.healthPoints--;
+        loseHealth?.Invoke();
+
         pickedUpLocation.position = transform.position;
-        
+
         virtualCamera.m_LookAt = pickedUpLocation;
         virtualCamera.m_Follow = pickedUpLocation;
 
@@ -125,15 +132,17 @@ public class FarmerBehaviour : MonoBehaviour
 
         player.transform.SetParent(transform);
 
-        //yield return new WaitForSecondsRealtime(1f);
         player.transform.position = new Vector3(transform.position.x, transform.position.y + liftedHeight, transform.position.z);
         FarmerSound("Farmer 2");
 
         yield return new WaitForSecondsRealtime(2f);
         setDestination.target = offScreenLocation;
 
-        yield return new WaitForSecondsRealtime(6f);
-        StartCoroutine(ResetPlayer());
+        if (playerHealth.healthPoints >= 1)
+        {
+            yield return new WaitForSecondsRealtime(6f);
+            StartCoroutine(ResetPlayer());
+        }
     }
 
     IEnumerator ResetPlayer()
@@ -143,7 +152,7 @@ public class FarmerBehaviour : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         player.transform.SetParent(null);
         player.transform.position = pickedUpLocation.position;
-        
+
         transform.position = new Vector3(pickedUpLocation.position.x - 40, pickedUpLocation.position.y, pickedUpLocation.position.z - 40);
         setDestination.target = SelectNewRandomSpot();
 
