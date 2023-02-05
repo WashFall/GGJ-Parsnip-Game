@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour
+public class Menu : MonoBehaviour
 {
     public GameObject optionsMenu;
     public void ChangeScene(string sceneName)
