@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     public GameObject optionsMenu;
-
     public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class VolumeData
 {
-    public static float volume;
+    public static float volume = 0.5f;
 }

@@ -21,6 +21,7 @@ public class FarmerBehaviour : MonoBehaviour
     AIDestinationSetter setDestination;
     CharacterMovement playerMovement;
     Rigidbody playerRb;
+    PlaySoundMultiple playSound;
 
     [SerializeField] float patrolSpeed;
     [SerializeField] float seekSpeed;
@@ -28,7 +29,8 @@ public class FarmerBehaviour : MonoBehaviour
 
     int randomDestinationSpot;
 
-    bool playerCaught, explosionHeard;
+    bool playerCaught, explosionHeard; 
+    bool justNoticedPlayer = true;
 
     void Start()
     {
@@ -37,6 +39,7 @@ public class FarmerBehaviour : MonoBehaviour
         fov = GetComponent<FOV>();
         playerMovement = player.GetComponent<CharacterMovement>();
         playerRb = player.GetComponent<Rigidbody>();
+        playSound = GetComponent<PlaySoundMultiple>();
 
         setDestination.target = SelectNewRandomSpot();
 
@@ -69,6 +72,12 @@ public class FarmerBehaviour : MonoBehaviour
             pathFinder.maxSpeed = seekSpeed;
             setDestination.target = player.transform;
 
+            if (justNoticedPlayer)
+            {
+                FarmerSound("Farmer");
+                justNoticedPlayer = false;
+            }
+
             if (Vector3.Distance(transform.position, player.transform.position) < fov.innerRadius) { StartCoroutine(CatchTarget()); }
         }
         else if (explosionHeard && !fov.TargetInView(player.transform))
@@ -82,6 +91,8 @@ public class FarmerBehaviour : MonoBehaviour
             {
                 //TODO: Add question mark above head and fix CoRoutine
                 explosionHeard = false;
+                FarmerSound("Farmer 3");
+
                 Invoke(nameof(Patrol), 2);
             }
         }
@@ -90,6 +101,7 @@ public class FarmerBehaviour : MonoBehaviour
             if (Vector3.Distance(transform.position, setDestination.target.position) < fov.innerRadius)
             {
                 setDestination.target = SelectNewRandomSpot();
+                justNoticedPlayer = true;
             }
         }
     }
@@ -115,6 +127,7 @@ public class FarmerBehaviour : MonoBehaviour
 
         //yield return new WaitForSecondsRealtime(1f);
         player.transform.position = new Vector3(transform.position.x, transform.position.y + liftedHeight, transform.position.z);
+        FarmerSound("Farmer 2");
 
         yield return new WaitForSecondsRealtime(2f);
         setDestination.target = offScreenLocation;
@@ -141,6 +154,10 @@ public class FarmerBehaviour : MonoBehaviour
         playerCaught = false;
         playerMovement.canMove = true;
         playerRb.useGravity = true;
+    }
 
+    private void FarmerSound(string soundName)
+    {
+        playSound.PlaySound(soundName);
     }
 }

@@ -11,12 +11,12 @@ public class PlayAudio : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.clip = audioClip;
     }
 
     public void PlaySound()
     {
-        audioSource.clip = audioClip;
         audioSource.volume = VolumeData.volume;
-        audioSource.Play();
+        audioSource.PlayOneShot(audioClip);
     }
 }
