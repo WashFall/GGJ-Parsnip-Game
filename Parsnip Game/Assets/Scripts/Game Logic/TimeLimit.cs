@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class TimeLimit : MonoBehaviour
@@ -23,5 +24,10 @@ public class TimeLimit : MonoBehaviour
         float minutes = Mathf.Floor(timeLeft / 60);
         float seconds = Mathf.Floor(timeLeft % 60);
         timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+
+        if (timeLeft <= 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
     }
 }
