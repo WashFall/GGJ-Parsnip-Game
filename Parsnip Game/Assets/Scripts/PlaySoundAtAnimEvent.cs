@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlaySoundAtAnimEvent : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PlaySoundAtAnimEvent : MonoBehaviour
 
     public void PlaySound()
     {
-        AudioSource.PlayClipAtPoint(clip,camera.position);
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "Win") return;
+            AudioSource.PlayClipAtPoint(clip,camera.position);
     }
 }
