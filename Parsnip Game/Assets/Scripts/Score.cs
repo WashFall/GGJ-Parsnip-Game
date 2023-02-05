@@ -22,6 +22,8 @@ public class Score : MonoBehaviour
         { 
             Instance = this; 
         } 
+        
+        DontDestroyOnLoad(gameObject);
     }
 
     public void AddScore(int score)
