@@ -692,7 +692,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a9042a3bce078cb4c8a851d755c7d8b7, type: 2}
+  - {fileID: 2100000, guid: 5412ee84b3e1ec145b694eaf9446afb7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110240,7 +110240,11 @@ MonoBehaviour:
   scatterFx: {fileID: 4880098551213599984, guid: e23aa6e46b31ef545b3dd12a8dcd8442, type: 3}
   explosionSite: {fileID: 7357519211835635444, guid: 4d9d3b239764305478780471d80f6a75, type: 3}
   currentExplosionSite: {fileID: 0}
-  rootPrefab: {fileID: 3176154060103816906, guid: 6ccf8f6b344b4344da8f45dd02b0ac4b, type: 3}
+  rootPrefab:
+  - {fileID: 3176154060103816906, guid: 6ccf8f6b344b4344da8f45dd02b0ac4b, type: 3}
+  - {fileID: 8983148619051644073, guid: 57e877d133010d44fa2aeb57bc94949b, type: 3}
+  - {fileID: 8983148619051644073, guid: e90a9ed5d53925e438767250612b0040, type: 3}
+  - {fileID: 8983148619051644073, guid: 7d58f7eb40ca76242b6b813b58633b6d, type: 3}
   maxRadius: {fileID: 5932555281094037516}
   rb: {fileID: 5932555281652279015}
   expSlider: {fileID: 849616172}

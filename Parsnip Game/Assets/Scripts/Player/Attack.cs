@@ -1,10 +1,7 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(InputManager))]
@@ -19,7 +16,7 @@ public class Attack : MonoBehaviour
     public static Explosion explosion;
     public GameObject explosionSite;
     public Transform currentExplosionSite;
-    public Roots rootPrefab;
+    public Roots[] rootPrefab;
 
     [SerializeField] private SphereCollider maxRadius;
     [SerializeField] private Rigidbody rb;
@@ -105,7 +102,7 @@ public class Attack : MonoBehaviour
 
     private IEnumerator DoRoots(Vector3 spawnPos)
     {
-        Roots root = Instantiate(rootPrefab, spawnPos, Quaternion.identity);
+        Roots root = Instantiate(rootPrefab[Random.Range(0,rootPrefab.Length)], spawnPos, Quaternion.identity);
         for (float i = 0; i < 1; i += Time.deltaTime)
         {
             root.rate = i;
