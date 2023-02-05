@@ -17,6 +17,7 @@ public class BuildingHealth : MonoBehaviour
         
         if (health < 1)
         {
+            Score.Instance.AddScore(30);
             Destroy(GetComponent<FixedJoint>());
         }
         
