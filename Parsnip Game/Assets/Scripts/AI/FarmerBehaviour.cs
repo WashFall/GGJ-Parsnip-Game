@@ -1,16 +1,28 @@
+using System.Collections;
+using Cinemachine;
 using Pathfinding;
 using UnityEngine;
 
 public class FarmerBehaviour : MonoBehaviour
 {
     public GameObject player;
-    
+
+    public CinemachineVirtualCamera virtualCamera;
+
+    public ParticleSystem cloudParticleEffect;
+
     public Transform[] patrolSpots;
+    public Transform pickedUpLocation;
+    public Transform offScreenLocation;
+
+    public float testSpeed;
 
     Transform target;
     FOV fov;
     AIPath pathFinder;
     AIDestinationSetter setDestination;
+    CharacterMovement playerMovement;
+    Rigidbody playerRb;
 
     [SerializeField] float patrolSpeed;
     [SerializeField] float seekSpeed;
@@ -25,6 +37,8 @@ public class FarmerBehaviour : MonoBehaviour
         pathFinder = GetComponent<AIPath>();
         setDestination = GetComponent<AIDestinationSetter>();
         fov = GetComponent<FOV>();
+        playerMovement = player.GetComponent<CharacterMovement>();
+        playerRb = player.GetComponent<Rigidbody>();
 
         setDestination.target = SelectNewRandomSpot();
 
@@ -52,12 +66,12 @@ public class FarmerBehaviour : MonoBehaviour
 
     void Patrol()
     {
-        if(fov.TargetInView(player.transform) || Vector3.Distance(transform.position, player.transform.position) < fov.outerRadius)
+        if (fov.TargetInView(player.transform) || Vector3.Distance(transform.position, player.transform.position) < fov.outerRadius)
         {
             pathFinder.maxSpeed = seekSpeed;
             setDestination.target = player.transform;
 
-            if(Vector3.Distance(transform.position, player.transform.position) < fov.innerRadius) { CatchTarget(); }
+            if (Vector3.Distance(transform.position, player.transform.position) < fov.innerRadius) { StartCoroutine(CatchTarget()); }
         }
         else if (explosionHeard && !fov.TargetInView(player.transform))
         {
@@ -82,18 +96,53 @@ public class FarmerBehaviour : MonoBehaviour
         }
     }
 
-    void CatchTarget()
+    IEnumerator CatchTarget()
     {
-        CharacterMovement playerMovement = player.GetComponent<CharacterMovement>();
+        //TODO:Player lose life
+        pickedUpLocation.position = transform.position;
         
+        virtualCamera.m_LookAt = pickedUpLocation;
+        virtualCamera.m_Follow = pickedUpLocation;
+
+        cloudParticleEffect.transform.position = pickedUpLocation.position;
+        cloudParticleEffect.Play();
+
         playerCaught = true;
         playerMovement.canMove = false;
+        playerRb.velocity = Vector3.zero;
+        playerRb.angularVelocity = Vector3.zero;
+        playerRb.useGravity = false;
 
-        player.transform.SetParent(transform, false);
+        player.transform.SetParent(transform);
+
+        //yield return new WaitForSecondsRealtime(1f);
         player.transform.position = new Vector3(transform.position.x, transform.position.y + liftedHeight, transform.position.z);
-        //Do some animation
-        //Player lose life
-        //Carry player off screen => OnComplete Patrol();
-        //Spawn new player
+
+        yield return new WaitForSecondsRealtime(2f);
+        setDestination.target = offScreenLocation;
+
+        yield return new WaitForSecondsRealtime(4f);
+        StartCoroutine(ResetPlayer());
+    }
+
+    IEnumerator ResetPlayer()
+    {
+        cloudParticleEffect.Play();
+
+        yield return new WaitForSecondsRealtime(1f);
+        player.transform.SetParent(null);
+        player.transform.position = pickedUpLocation.position;
+        
+        transform.position = new Vector3(pickedUpLocation.position.x - 20, pickedUpLocation.position.y, pickedUpLocation.position.z - 20);
+        setDestination.target = SelectNewRandomSpot();
+
+        virtualCamera.m_LookAt = player.transform;
+        virtualCamera.m_Follow = player.transform;
+
+        yield return new WaitForSecondsRealtime(1f);
+        playerCaught = false;
+        playerMovement.canMove = true;
+        playerRb.useGravity = true;
+
     }
 }
