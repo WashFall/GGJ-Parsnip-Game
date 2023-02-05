@@ -41,7 +41,7 @@ public class GenerateBuildings : MonoBehaviour
 	private struct PlacedBuildingSpots
 	{
 		public Vector3 m_placement;
-		private const float k_closeRadious = 2f;
+		private const float k_closeRadious = 15f;
 
 		public PlacedBuildingSpots(Vector3 placement)
 		{

@@ -15,8 +15,6 @@ public class FarmerBehaviour : MonoBehaviour
     public Transform pickedUpLocation;
     public Transform offScreenLocation;
 
-    public float testSpeed;
-
     Transform target;
     FOV fov;
     AIPath pathFinder;
@@ -121,7 +119,7 @@ public class FarmerBehaviour : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
         setDestination.target = offScreenLocation;
 
-        yield return new WaitForSecondsRealtime(4f);
+        yield return new WaitForSecondsRealtime(6f);
         StartCoroutine(ResetPlayer());
     }
 
@@ -133,7 +131,7 @@ public class FarmerBehaviour : MonoBehaviour
         player.transform.SetParent(null);
         player.transform.position = pickedUpLocation.position;
         
-        transform.position = new Vector3(pickedUpLocation.position.x - 20, pickedUpLocation.position.y, pickedUpLocation.position.z - 20);
+        transform.position = new Vector3(pickedUpLocation.position.x - 40, pickedUpLocation.position.y, pickedUpLocation.position.z - 40);
         setDestination.target = SelectNewRandomSpot();
 
         virtualCamera.m_LookAt = player.transform;
