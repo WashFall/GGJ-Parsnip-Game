@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8334992497784115432}
   - component: {fileID: 8334992497784115434}
   - component: {fileID: 8334992497784115433}
+  - component: {fileID: 398628058768561655}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: ScoreText
@@ -135,3 +136,15 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &398628058768561655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334992497784115431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9761d13abd5336c47a2f1987fdac85ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
