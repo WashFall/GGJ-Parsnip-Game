@@ -18,7 +18,7 @@ public class Attack : MonoBehaviour
     public static Explosion explosion;
     public GameObject explosionSite;
     public Transform currentExplosionSite;
-    public GameObject root;
+    public Roots rootPrefab;
 
     [SerializeField] private SphereCollider maxRadius;
     [SerializeField] private Rigidbody rb;
@@ -41,9 +41,7 @@ public class Attack : MonoBehaviour
         if (inputManager.attack.ReadValue<float>() == 1)
             StartAttack();
 
-        Debug.Log(attackProgress);
 
-        
         if (attackProgress >= 1 && !hasAttackedRecently)
         {
             hasAttackedRecently = true;
@@ -93,11 +91,20 @@ public class Attack : MonoBehaviour
             {
                 Vector3 spawnPos = bh.transform.position;
                 bh.DamageHealth(damage);
-                Instantiate(root, spawnPos, Quaternion.identity);
+                StartCoroutine(DoRoots(spawnPos));
             }
         }
     }
 
+    private IEnumerator DoRoots(Vector3 spawnPos)
+    {
+        Roots root = Instantiate(rootPrefab, spawnPos, Quaternion.identity);
+        for (float i = 0; i < 1; i += Time.deltaTime)
+        {
+            root.rate = i;
+            yield return null;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Building")

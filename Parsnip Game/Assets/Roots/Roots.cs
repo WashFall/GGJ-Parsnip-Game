@@ -69,6 +69,7 @@ public class Roots : MonoBehaviour
         roots = tempList.ToArray();
     }
 
+    #if UNITY_EDITOR
     public void PreviewRoots() {
 
         if (rate > 1) {
@@ -87,7 +88,7 @@ public class Roots : MonoBehaviour
             EditorApplication.update -= EditorUpdate;
         }
     }
-
+#endif
     private void EditorUpdate() {
         Grow();
     }
