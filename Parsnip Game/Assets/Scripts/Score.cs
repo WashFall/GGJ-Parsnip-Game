@@ -52,6 +52,11 @@ public class Score : MonoBehaviour
 
     }
 
+    public void SetText()
+    {
+        text.text = $"Score: {scoreing}";
+    }
+
     private void SetScoreTextOnEndScenes()
     {
         text.text = $"Score: {scoreing}";
