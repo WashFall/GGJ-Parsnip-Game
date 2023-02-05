@@ -105,7 +105,7 @@ public class Attack : MonoBehaviour
     private IEnumerator DoRoots(Vector3 spawnPos)
     {
         Roots root = Instantiate(rootPrefab, spawnPos, Quaternion.identity);
-        playSound.PlaySound("roots");
+        playSound.PlaySound("Roots");
         for (float i = 0; i < 1; i += Time.deltaTime)
         {
             root.rate = i;

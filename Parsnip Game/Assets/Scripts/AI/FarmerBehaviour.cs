@@ -114,7 +114,7 @@ public class FarmerBehaviour : MonoBehaviour
         virtualCamera.m_LookAt = pickedUpLocation;
         virtualCamera.m_Follow = pickedUpLocation;
 
-        cloudParticleEffect.transform.position = pickedUpLocation.position;
+        cloudParticleEffect.transform.position = new Vector3(pickedUpLocation.position.x, pickedUpLocation.position.y + 15, pickedUpLocation.position.z);
         cloudParticleEffect.Play();
 
         playerCaught = true;
