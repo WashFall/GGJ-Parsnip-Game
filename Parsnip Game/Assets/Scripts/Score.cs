@@ -34,7 +34,7 @@ public class Score : MonoBehaviour
         
         if(scoreing >= winScore)
         {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(2);
         }
     }
 
