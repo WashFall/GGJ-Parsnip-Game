@@ -11,19 +11,20 @@ public class Score : MonoBehaviour
     public int scoreing;
     public int winScore;
     private void Awake() 
-    { 
+    {
         // If there is an instance, and it's not me, delete myself.
-    
-        if (Instance != null && Instance != this) 
-        { 
-            Destroy(this); 
-        } 
-        else 
-        { 
-            Instance = this; 
-        } 
-        
+
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        GetText();
     }
 
     public void AddScore(int score)
@@ -35,5 +36,14 @@ public class Score : MonoBehaviour
         {
             SceneManager.LoadScene(3);
         }
+    }
+
+    private void GetText()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+
+        if (scene.name == "MainMenu") return;
+
+        text = GameObject.FindGameObjectWithTag("ScoreText").GetComponent<TMP_Text>();
     }
 }
